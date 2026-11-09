@@ -4,7 +4,7 @@ Read this before changing the code. It explains what this integration is,
 the decisions already made and the constraints that aren't obvious from
 the code.
 
-_Last updated: 2026-11-09 23:55 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
+_Last updated: 2026-11-10 00:30 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
 
 ---
 
@@ -61,9 +61,18 @@ generic examples ("Alex Example", `192.168.1.20`, `labels.home.example`,
   Keep `hacs.json` in step.
 - **No requirements:** only Home Assistant's own libraries (aiohttp,
   voluptuous).
-- **Brand images:** original artwork only. Never Home Assistant's branding
-  or a printer maker's logo. Square PNG, transparent, trimmed, 256 and 512
-  px, with `dark_` versions.
+- **Brand images:** original artwork only. Never Home Assistant's branding,
+  a printer maker's logo, or the Distant Galaxy Pinwheel itself (the brand
+  guide says the mark is never redrawn). The icon follows the Distant
+  Galaxy brand guidelines (v1.0):
+  - flat colours, no gradients, rounded corners;
+  - Signal Blue `#1B7CB6` body, Nebula Teal `#12847C` band;
+  - Ink `#0D2C54` / `#4A5468` text lines on a white label;
+  - one Burnt Orange `#CD4C18` "distant star" as the only orange (the nod
+    to the mark).
+
+  Square PNG, transparent, trimmed, 256 and 512 px. The `dark_` versions
+  drop the label's outline (#6B7A90), which is only needed on white.
 
 ## Code layout
 
@@ -134,4 +143,5 @@ request, together with Home Assistant's `hassfest` and the Marketplace
 - 2026-11-09 – Domain `ql_label_printer` (specific enough not to clash
   with any future core integration).
 - 2026-11-09 – Own brand icon in `brand/` (HA 2026.3+), so it doesn't
-  show a placeholder like a "budget add-on".
+  show a placeholder like a "budget add-on". Drawn in the Distant Galaxy
+  Signal palette with an orange distant star as the brand nod.

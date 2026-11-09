@@ -4,7 +4,7 @@ Read this before changing the code. It explains what this integration is,
 the decisions already made and the constraints that aren't obvious from
 the code.
 
-_Last updated: 2026-11-10 00:30 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
+_Last updated: 2026-11-10 00:45 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
 
 ---
 
@@ -68,8 +68,8 @@ generic examples ("Alex Example", `192.168.1.20`, `labels.home.example`,
   - flat colours, no gradients, rounded corners;
   - Signal Blue `#1B7CB6` body, Nebula Teal `#12847C` band;
   - Ink `#0D2C54` / `#4A5468` text lines on a white label;
-  - one Burnt Orange `#CD4C18` "distant star" as the only orange (the nod
-    to the mark).
+  - a Burnt Orange `#CD4C18` button on the printer as the only orange
+    (the nod to the mark, whose core is the one orange element).
 
   Square PNG, transparent, trimmed, 256 and 512 px. The `dark_` versions
   drop the label's outline (#6B7A90), which is only needed on white.
@@ -144,4 +144,5 @@ request, together with Home Assistant's `hassfest` and the Marketplace
   with any future core integration).
 - 2026-11-09 – Own brand icon in `brand/` (HA 2026.3+), so it doesn't
   show a placeholder like a "budget add-on". Drawn in the Distant Galaxy
-  Signal palette with an orange distant star as the brand nod.
+  Signal palette with an orange printer button as the brand nod (an
+  earlier loose "distant star" dot was dropped as looking random).

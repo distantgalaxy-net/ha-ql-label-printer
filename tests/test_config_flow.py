@@ -1,11 +1,12 @@
 """Tests for the QL Label Printer setup screens.
 
-Date: 2026-11-09 23:40 GMT
+Date: 2026-11-10 00:25 GMT (updated; first written 2026-11-09 23:40 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Covers: a successful setup, an address that doesn't work, a wrong or
-missing password, a bad address, setting up the same app twice,
-reconfiguring, and re-entering a changed password.
+missing password, a bad address, the optional browser-link address,
+setting up the same app twice, reconfiguring, and re-entering a changed
+password.
 """
 from __future__ import annotations
 
@@ -13,7 +14,7 @@ from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant.data_entry_flow import FlowResultType
 
-from custom_components.ql_label_printer.const import CONF_PASSWORD, CONF_URL, DOMAIN
+from custom_components.ql_label_printer.const import CONF_LINK_URL, CONF_PASSWORD, CONF_URL, DOMAIN
 
 from .conftest import OPTIONS, READY, URL
 
@@ -29,7 +30,24 @@ async def test_setup_ok(hass: HomeAssistant, app) -> None:
     assert result["type"] is FlowResultType.FORM
     result = await hass.config_entries.flow.async_configure(result["flow_id"], {CONF_URL: f"{URL}/", CONF_PASSWORD: ""})
     assert result["type"] is FlowResultType.CREATE_ENTRY
-    assert result["data"] == {CONF_URL: URL, CONF_PASSWORD: ""}
+    assert result["data"] == {CONF_URL: URL, CONF_PASSWORD: "", CONF_LINK_URL: ""}
+
+
+async def test_setup_with_link(hass: HomeAssistant, app) -> None:
+    """Connect at 127.0.0.1-style address, but link people to the https name."""
+    result = await start(hass)
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {CONF_URL: URL, CONF_LINK_URL: "https://labels.home.example/"})
+    assert result["type"] is FlowResultType.CREATE_ENTRY
+    assert result["data"][CONF_LINK_URL] == "https://labels.home.example"
+
+
+async def test_bad_link(hass: HomeAssistant) -> None:
+    """A link address without http(s):// is refused."""
+    result = await start(hass)
+    result = await hass.config_entries.flow.async_configure(
+        result["flow_id"], {CONF_URL: URL, CONF_LINK_URL: "labels.home.example"})
+    assert result["errors"] == {CONF_LINK_URL: "invalid_url"}
 
 
 async def test_cannot_connect(hass: HomeAssistant, aioclient_mock) -> None:
@@ -83,7 +101,7 @@ async def test_reconfigure(hass: HomeAssistant, app, config_entry) -> None:
     result = await hass.config_entries.flow.async_configure(result["flow_id"], {CONF_URL: new_url, CONF_PASSWORD: "pw"})
     assert result["type"] is FlowResultType.ABORT
     assert result["reason"] == "reconfigure_successful"
-    assert config_entry.data == {CONF_URL: new_url, CONF_PASSWORD: "pw"}
+    assert config_entry.data == {CONF_URL: new_url, CONF_PASSWORD: "pw", CONF_LINK_URL: ""}
 
 
 async def test_reauth(hass: HomeAssistant, app, config_entry) -> None:

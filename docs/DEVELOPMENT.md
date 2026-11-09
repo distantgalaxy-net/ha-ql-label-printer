@@ -4,7 +4,7 @@ Read this before changing the code. It explains what this integration is,
 the decisions already made and the constraints that aren't obvious from
 the code.
 
-_Last updated: 2026-11-10 00:45 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
+_Last updated: 2026-11-10 00:30 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
 
 ---
 
@@ -26,8 +26,10 @@ generic examples ("Alex Example", `192.168.1.20`, `labels.home.example`,
 ## Current state
 
 - **Config flow:** app URL + optional password, checked against
-  `GET /api/options`; reconfigure; reauth when the password changes.
-  Unique ID = the URL in lower case.
+  `GET /api/options`, plus an optional "address to open in a browser"
+  (`link_url`) for the device page's Visit link (falls back to the app URL);
+  reconfigure; reauth when the password changes. Unique ID = the app URL in
+  lower case.
 - **Coordinator:** `GET /api/printer/status` every 60 s.
 - **Entities** (one device per app):
   - Printer status: enum sensor, with the app's message as an attribute.
@@ -142,6 +144,8 @@ request, together with Home Assistant's `hassfest` and the Marketplace
   status entities, typed print actions with readable errors.
 - 2026-11-09 – Domain `ql_label_printer` (specific enough not to clash
   with any future core integration).
+- 2026-11-10 – Separate browser link address: on the same host the app
+  is best reached at http://127.0.0.1:8013, which is useless as a link.
 - 2026-11-09 – Own brand icon in `brand/` (HA 2026.3+), so it doesn't
   show a placeholder like a "budget add-on". Drawn in the Distant Galaxy
   Signal palette with an orange printer button as the brand nod (an

@@ -1,6 +1,6 @@
 """Constants for the QL Label Printer integration.
 
-Date: 2026-11-09 23:25 GMT
+Date: 2026-11-10 00:20 GMT (updated; first written 2026-11-09 23:25 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Shared names and settings: the integration's domain, config entry keys,
@@ -14,6 +14,7 @@ DOMAIN = "ql_label_printer"
 # Config entry keys
 CONF_URL = "url"                 # where the label printer app is, e.g. http://127.0.0.1:8013
 CONF_PASSWORD = "password"       # the app's optional password (blank = none)
+CONF_LINK_URL = "link_url"       # optional address for people to open the app in a browser
 
 # The app runs on the same host as Home Assistant in the common setup
 DEFAULT_URL = "http://127.0.0.1:8013"

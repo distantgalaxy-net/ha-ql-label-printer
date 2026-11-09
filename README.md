@@ -3,7 +3,7 @@
 Print labels on a Brother QL label printer from Home Assistant, and see
 whether the printer is ready.
 
-_Updated: 2026-11-09 23:55 GMT · Developer: Ash @ Distant Galaxy (distantgalaxy-net)_
+_Updated: 2026-11-10 00:30 GMT · Developer: Ash @ Distant Galaxy (distantgalaxy-net)_
 
 This integration connects Home Assistant to the
 [QL Label Printer app](https://github.com/distantgalaxy-net/ql-label-printer),
@@ -66,8 +66,17 @@ Assistant.
 **Settings → Devices & services → Add integration → QL Label Printer.**
 Enter:
 
-- **App address:** e.g. `http://127.0.0.1:8013` or `https://labels.home.example`.
+- **App address:** where Home Assistant reaches the app.
+  - **Same host:** if Home Assistant runs on the same host as the app,
+    use `http://127.0.0.1:8013`. This is the most reliable option, because
+    it doesn't depend on DNS or a reverse proxy.
+  - **Behind a reverse proxy:** use the `https://` address you open it at,
+    e.g. `https://labels.home.example`, **without** a port number.
 - **Password:** only if you set one in the app's Settings tab.
+- **Address to open in a browser** (optional): what the device page's
+  **Visit** link opens. Leave it blank to use the app address. Set it when
+  the app address only works for Home Assistant: for example, connect at
+  `http://127.0.0.1:8013` and link to `https://labels.home.example`.
 
 It checks it can connect before saving. To change the address or password
 later, open the integration's **⋮** menu → **Reconfigure**. If the app's
@@ -169,6 +178,7 @@ yours on the device page.
 | Problem | What to check |
 |---|---|
 | Setup says it can't reach the app | The address, and that Home Assistant can reach that host and port. An app published only on `127.0.0.1` is reachable only from the same host. |
+| Setup can't reach the `https://` name, but `127.0.0.1` works | Use the name without a port (`https://labels.home.example`, not `:8013`). If your reverse proxy only allows certain addresses, Home Assistant's requests come from its own host's address, so allow that too. Or connect at `http://127.0.0.1:8013` and put the `https://` name in **Address to open in a browser**. |
 | Setup says the password is wrong | The password set in the app's **Settings → Password**. |
 | Status always *Connected (status not reported)* | The printer isn't answering status checks. See the app's README: it needs SNMP, and UDP 161 open to the printer. |
 | An action fails with *Not printed: …* | The app checked the printer first and found a problem (the reason is in the message). Fix it, then try again. |

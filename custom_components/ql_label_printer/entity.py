@@ -1,17 +1,18 @@
 """Shared base for the QL Label Printer entities.
 
-Date: 2026-11-09 23:30 GMT
+Date: 2026-11-10 00:20 GMT (updated; first written 2026-11-09 23:30 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Every entity belongs to one device, "QL Label Printer", whose page shows
-the app's version and links to the app's web page.
+the app's version and a "Visit" link to the app's web page: the "address
+to open in a browser" if one was given, otherwise the app address.
 """
 from __future__ import annotations
 
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN
+from .const import CONF_LINK_URL, DOMAIN
 from .coordinator import LabelPrinterConfigEntry, LabelPrinterCoordinator
 
 
@@ -30,5 +31,5 @@ class LabelPrinterEntity(CoordinatorEntity[LabelPrinterCoordinator]):
             manufacturer="Distant Galaxy",
             model="QL Label Printer app",
             sw_version=entry.runtime_data.version,
-            configuration_url=entry.runtime_data.client.url,
+            configuration_url=entry.data.get(CONF_LINK_URL) or entry.runtime_data.client.url,
         )

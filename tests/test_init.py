@@ -1,6 +1,6 @@
 """Tests for the QL Label Printer entities and print actions.
 
-Date: 2026-11-09 23:40 GMT
+Date: 2026-11-10 00:25 GMT (updated; first written 2026-11-09 23:40 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Covers: the sensors' states, the app being unreachable at start-up, each
@@ -126,6 +126,26 @@ async def test_two_printers_need_choosing(hass: HomeAssistant, app, config_entry
     await hass.services.async_call(DOMAIN, "print_battery", {"device": "Sensor", "config_entry_id": other.entry_id},
                                    blocking=True)
     assert any(str(c[1]).startswith(other_url) and str(c[1]).endswith("/api/print/battery") for c in app.mock_calls)
+
+
+async def test_visit_link(hass: HomeAssistant, app) -> None:
+    """The device page's Visit link uses the browser address if given, else the app address."""
+    from homeassistant.helpers import device_registry as dr
+    from pytest_homeassistant_custom_component.common import MockConfigEntry
+    from custom_components.ql_label_printer.const import CONF_LINK_URL, CONF_PASSWORD, CONF_URL
+    entry = MockConfigEntry(domain=DOMAIN, unique_id=URL,
+                            data={CONF_URL: URL, CONF_PASSWORD: "", CONF_LINK_URL: "https://labels.home.example"})
+    await setup(hass, entry)
+    device = dr.async_get(hass).async_get_device(identifiers={(DOMAIN, entry.entry_id)})
+    assert device.configuration_url == "https://labels.home.example"
+
+
+async def test_visit_link_defaults_to_app(hass: HomeAssistant, app, config_entry) -> None:
+    """Without a browser address, the Visit link is the app address."""
+    from homeassistant.helpers import device_registry as dr
+    await setup(hass, config_entry)
+    device = dr.async_get(hass).async_get_device(identifiers={(DOMAIN, config_entry.entry_id)})
+    assert device.configuration_url == URL
 
 
 async def test_unload(hass: HomeAssistant, app, config_entry) -> None:

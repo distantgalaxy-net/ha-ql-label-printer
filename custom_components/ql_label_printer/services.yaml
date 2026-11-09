@@ -1,0 +1,152 @@
+# ------------------------------------------------------------------
+# QL Label Printer - print actions and their form fields
+# Date: 2026-11-09 23:35 GMT
+# Developer: Ash @ Distant Galaxy (distantgalaxy-net)
+#
+# The fields shown in Home Assistant's action editor. Names and
+# descriptions are in translations/en.json. Every action can also take
+# config_entry_id (only needed with more than one label printer) and
+# copies (1-20).
+# ------------------------------------------------------------------
+print_address:
+  fields:
+    name:
+      required: true
+      example: "Alex Example"
+      selector:
+        text:
+    address:
+      example: "1 High Street\nAnytown\nAB1 2CD"
+      selector:
+        text:
+          multiline: true
+    icon:
+      example: "gift"
+      selector:
+        text:
+    copies: &copies
+      default: 1
+      selector:
+        number:
+          min: 1
+          max: 20
+          mode: box
+    config_entry_id: &entry
+      selector:
+        config_entry:
+          integration: ql_label_printer
+
+print_battery:
+  fields:
+    device:
+      required: true
+      example: "Hallway motion sensor"
+      selector:
+        text:
+    battery:
+      example: "CR2032"
+      selector:
+        text:
+    changed:
+      selector:
+        date:
+    copies: *copies
+    config_entry_id: *entry
+
+print_food:
+  fields:
+    title:
+      required: true
+      example: "Beef chilli"
+      selector:
+        text:
+    storage:
+      default: frozen
+      selector:
+        select:
+          translation_key: storage
+          options: [frozen, fridge, cupboard]
+    date:
+      selector:
+        date:
+    shelf:
+      example: 3
+      selector:
+        number:
+          min: 0
+          max: 999
+          mode: box
+    shelf_unit:
+      selector:
+        select:
+          translation_key: shelf_unit
+          options: [days, months]
+    method:
+      selector:
+        select:
+          translation_key: method
+          options: [from_frozen, defrost, cook, none]
+    minutes:
+      selector:
+        number:
+          min: 0
+          max: 999
+          mode: box
+    temp:
+      selector:
+        number:
+          min: 0
+          max: 999
+          mode: box
+    fan:
+      selector:
+        number:
+          min: 0
+          max: 999
+          mode: box
+    notes:
+      selector:
+        text:
+          multiline: true
+    copies: *copies
+    config_entry_id: *entry
+
+print_network:
+  fields:
+    name:
+      required: true
+      example: "Label printer"
+      selector:
+        text:
+    ip:
+      example: "192.168.1.20"
+      selector:
+        text:
+    vlan:
+      example: "20"
+      selector:
+        text:
+    mac:
+      selector:
+        text:
+    notes:
+      selector:
+        text:
+          multiline: true
+    copies: *copies
+    config_entry_id: *entry
+
+print_label:
+  fields:
+    kind:
+      required: true
+      selector:
+        select:
+          translation_key: kind
+          options: [address, food, travel, battery, network]
+    fields:
+      example: '{"device": "Hallway sensor", "battery": "CR2032"}'
+      selector:
+        object:
+    copies: *copies
+    config_entry_id: *entry

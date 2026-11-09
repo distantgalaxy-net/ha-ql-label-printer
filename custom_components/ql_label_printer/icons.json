@@ -1,0 +1,28 @@
+{
+  "entity": {
+    "sensor": {
+      "status": {
+        "default": "mdi:printer",
+        "state": {
+          "ready": "mdi:printer-check",
+          "connected": "mdi:printer",
+          "cover_open": "mdi:printer-alert",
+          "no_media": "mdi:printer-alert",
+          "wrong_media": "mdi:printer-alert",
+          "error": "mdi:printer-alert",
+          "offline": "mdi:printer-off"
+        }
+      },
+      "media": {
+        "default": "mdi:label-outline"
+      }
+    }
+  },
+  "services": {
+    "print_address": { "service": "mdi:email-outline" },
+    "print_battery": { "service": "mdi:battery-outline" },
+    "print_food": { "service": "mdi:food-variant" },
+    "print_network": { "service": "mdi:lan" },
+    "print_label": { "service": "mdi:label-outline" }
+  }
+}

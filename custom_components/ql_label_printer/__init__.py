@@ -1,6 +1,6 @@
 """The QL Label Printer integration.
 
-Date: 2026-11-11 09:30 GMT (updated; first written 2026-11-09 23:25 GMT)
+Date: 2026-11-11 10:00 GMT (updated; first written 2026-11-09 23:25 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Connects Home Assistant to the QL Label Printer app
@@ -55,6 +55,9 @@ ACTIONS: dict[str, tuple[str, dict]] = {
         vol.Required("name"): text,
         vol.Optional("address"): text,              # lines separated by new lines
         vol.Optional("icon"): text,                 # e.g. "gift", or one of your own icons
+        # Small note under the address, and its alignment (app 1.2.4 or later)
+        vol.Optional("note"): text,
+        vol.Optional("note_align"): vol.In(["left", "center"]),
     }),
     "print_battery": ("battery", {
         vol.Required("device"): text,

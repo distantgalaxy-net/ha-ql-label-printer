@@ -70,6 +70,10 @@ async def test_app_unreachable(hass: HomeAssistant, aioclient_mock, config_entry
     [
         ("print_address", {"name": "Alex Example", "address": "1 High Street\nAnytown", "icon": "gift"},
          "address", {"name": "Alex Example", "address": "1 High Street\nAnytown", "icon": "gift"}),
+        ("print_address", {"name": "Alex Example", "address": "1 High Street", "note": "Please leave with a neighbour",
+                           "note_align": "center"},
+         "address", {"name": "Alex Example", "address": "1 High Street", "note": "Please leave with a neighbour",
+                     "note_align": "center"}),
         ("print_battery", {"device": "Hallway sensor", "battery": "CR2032", "changed": "2026-11-09"},
          "battery", {"device": "Hallway sensor", "battery": "CR2032", "changed": "2026-11-09"}),
         ("print_food", {"title": "Beef chilli", "shelf": 3, "shelf_unit": "months", "method": "from_frozen"},

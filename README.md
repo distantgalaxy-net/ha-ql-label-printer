@@ -132,6 +132,10 @@ data:
   notes: Stir, then 2 more min
 ```
 
+The luggage label has no action of its own (a list of flights is easier
+to put together in the app). It's **Luggage** in the **Print any label**
+list, and `travel` in YAML:
+
 ```yaml
 action: ql_label_printer.print_label
 data:

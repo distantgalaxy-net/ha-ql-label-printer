@@ -94,21 +94,26 @@
         "none": "No cooking instructions"
       }
     },
+    "note_align": {
+      "options": { "left": "Left", "center": "Centre" }
+    },
     "appliance": {
       "options": { "oven": "Oven", "air_fryer": "Air fryer", "microwave": "Microwave", "hob": "Hob" }
     },
     "kind": {
-      "options": { "address": "Address", "food": "Food", "travel": "Travel", "battery": "Battery", "network": "Network" }
+      "options": { "address": "Address", "food": "Food", "travel": "Luggage", "battery": "Battery", "network": "Network" }
     }
   },
   "services": {
     "print_address": {
       "name": "Print address label",
-      "description": "Prints a name and address, with an icon if you choose one.",
+      "description": "Prints a name and address, with an icon and a small note if you choose them.",
       "fields": {
         "name": { "name": "Name", "description": "The name to print at the top." },
         "address": { "name": "Address", "description": "Put each line of the address on a new line." },
         "icon": { "name": "Icon", "description": "The name of an icon, such as gift or birthday. You can also use an icon you uploaded in the app." },
+        "note": { "name": "Note", "description": "Printed small, across the label, under the address. For example: Please leave with a neighbour." },
+        "note_align": { "name": "Note alignment", "description": "Left (the default) or centre." },
         "copies": { "name": "Copies", "description": "How many labels to print, from 1 to 20." },
         "config_entry_id": { "name": "Label printer", "description": "Only needed if you've set up more than one label printer." }
       }

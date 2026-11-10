@@ -1,12 +1,17 @@
 {
   "domain": "ql_label_printer",
   "name": "QL Label Printer",
-  "codeowners": ["@distantgalaxy-net"],
+  "categories": [
+    "computers_network.printers"
+  ],
+  "codeowners": [
+    "@distantgalaxy-net"
+  ],
   "config_flow": true,
   "documentation": "https://github.com/distantgalaxy-net/ha-ql-label-printer",
   "integration_type": "device",
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/distantgalaxy-net/ha-ql-label-printer/issues",
   "requirements": [],
-  "version": "0.1.4"
+  "version": "0.1.5"
 }

@@ -162,3 +162,6 @@ request, together with Home Assistant's `hassfest` and the Marketplace
   show a placeholder like a "budget add-on". Drawn in the Distant Galaxy
   Signal palette with an orange printer button as the brand nod (an
   earlier loose "distant star" dot was dropped as looking random).
+- 2026-11-11 – `print_food` gains `appliance` (oven, air fryer, microwave,
+  hob) and `watts`, matching app 1.2.9. Both are optional, so automations
+  written for 0.1.5 keep printing the same label (0.1.6).

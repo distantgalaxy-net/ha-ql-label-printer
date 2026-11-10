@@ -1,0 +1,48 @@
+# ------------------------------------------------------------------
+# ha-ql-label-printer - checks run by GitHub on every pull request
+# Date: 2026-11-09 23:55 GMT
+# Developer: Ash @ Distant Galaxy (distantgalaxy-net)
+#
+#   tests     the pytest suite, inside Home Assistant's test harness
+#   hassfest  Home Assistant's own checks for integrations (manifest,
+#             services, translations, ...)
+#   hacs      the Marketplace's (HACS) checks for installable repos. The
+#             "brands" check is skipped: the icon ships in brand/ instead.
+# ------------------------------------------------------------------
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install test packages
+        run: pip install -r requirements_test.txt
+      - name: Run tests
+        run: pytest
+
+  hassfest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: home-assistant/actions/hassfest@master
+
+  hacs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hacs/action@main
+        with:
+          category: integration
+          ignore: brands

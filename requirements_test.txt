@@ -1,0 +1,5 @@
+# ha-ql-label-printer - packages for running the tests
+# Date: 2026-11-09 23:40 GMT
+# Developer: Ash @ Distant Galaxy (distantgalaxy-net)
+# Home Assistant's own test harness (brings in Home Assistant itself)
+pytest-homeassistant-custom-component

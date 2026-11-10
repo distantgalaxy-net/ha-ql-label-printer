@@ -1,0 +1,6 @@
+# ha-ql-label-printer - files git ignores
+# Python caches and the local test environment
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/

@@ -3,47 +3,48 @@
     "step": {
       "user": {
         "title": "Connect to the label printer app",
-        "description": "The address of the QL Label Printer app (the one that prints the labels). If Home Assistant runs on the same host, the default usually works.",
+        "description": "Enter where Home Assistant can find the QL Label Printer app.",
         "data": {
           "url": "App address",
-          "password": "Password (only if you set one in the app)",
-          "link_url": "Address to open in a browser (optional)"
+          "password": "Password",
+          "link_url": "Web page address (optional)"
         },
         "data_description": {
-          "url": "Where Home Assistant reaches the app, for example http://127.0.0.1:8013 on the same host, or the https:// address you open the app at (no port number if it's behind a reverse proxy).",
-          "password": "Leave blank if the app has no password.",
-          "link_url": "The address for the device page's Visit link, e.g. https://labels.home.example. Leave blank to use the app address. Useful when the app address only works for Home Assistant, like http://127.0.0.1:8013."
+          "url": "If the app runs on the same computer as Home Assistant, use http://127.0.0.1:8013. Otherwise, use the address you open the app at in your browser, without a port number.",
+          "password": "Only needed if you set a password in the app. Otherwise, leave it blank.",
+          "link_url": "The address that opens when you select Visit on the device page. Leave it blank to use the app address. Fill it in if the app address only works for Home Assistant, such as http://127.0.0.1:8013."
         }
       },
       "reconfigure": {
-        "title": "Change the label printer app's address",
+        "title": "Change the app's settings",
         "data": {
           "url": "App address",
-          "password": "Password (only if you set one in the app)",
-          "link_url": "Address to open in a browser (optional)"
+          "password": "Password",
+          "link_url": "Web page address (optional)"
         },
         "data_description": {
-          "url": "Where Home Assistant reaches the app, for example http://127.0.0.1:8013 on the same host, or the https:// address you open the app at (no port number if it's behind a reverse proxy).",
-          "link_url": "The address for the device page's Visit link, e.g. https://labels.home.example. Leave blank to use the app address. Useful when the app address only works for Home Assistant, like http://127.0.0.1:8013."
+          "url": "If the app runs on the same computer as Home Assistant, use http://127.0.0.1:8013. Otherwise, use the address you open the app at in your browser, without a port number.",
+          "password": "Only needed if you set a password in the app. Otherwise, leave it blank.",
+          "link_url": "The address that opens when you select Visit on the device page. Leave it blank to use the app address. Fill it in if the app address only works for Home Assistant, such as http://127.0.0.1:8013."
         }
       },
       "reauth_confirm": {
-        "title": "The label printer app's password has changed",
-        "description": "Enter the current password for the app at {url}.",
+        "title": "Enter the app's new password",
+        "description": "The label printer app at {url} no longer accepts the saved password. Enter its current password.",
         "data": {
           "password": "Password"
         }
       }
     },
     "error": {
-      "cannot_connect": "Couldn't reach the label printer app at that address. Check the address and that the app is running.",
-      "invalid_auth": "The app needs a password, or the password is wrong.",
-      "invalid_url": "Enter a full address starting with http:// or https://."
+      "cannot_connect": "Home Assistant can't reach the app at this address. Check the address is right and the app is running.",
+      "invalid_auth": "The password is wrong, or the app needs a password.",
+      "invalid_url": "Enter a full address that starts with http:// or https://."
     },
     "abort": {
       "already_configured": "This label printer app is already set up.",
-      "reconfigure_successful": "The label printer's settings have been updated.",
-      "reauth_successful": "The password has been updated."
+      "reconfigure_successful": "Settings saved.",
+      "reauth_successful": "Password updated."
     }
   },
   "entity": {
@@ -52,20 +53,16 @@
         "name": "Printer status",
         "state": {
           "ready": "Ready",
-          "connected": "Connected (status not reported)",
+          "connected": "Connected – status unknown",
           "cover_open": "Cover open",
           "no_media": "Label spool finished",
-          "wrong_media": "Wrong roll fitted",
-          "error": "Error",
+          "wrong_media": "Wrong label roll",
+          "error": "Printer error",
           "offline": "Offline"
         },
         "state_attributes": {
-          "message": {
-            "name": "Message"
-          },
-          "source": {
-            "name": "Reported by"
-          }
+          "message": { "name": "Message" },
+          "source": { "name": "Checked using" }
         }
       },
       "media": {
@@ -73,204 +70,96 @@
       }
     },
     "binary_sensor": {
-      "problem": {
-        "name": "Printer problem"
+      "ready": {
+        "name": "Ready to print",
+        "state": {
+          "on": "Yes",
+          "off": "No"
+        }
       }
     }
   },
   "selector": {
     "storage": {
-      "options": {
-        "frozen": "Freezer",
-        "fridge": "Fridge",
-        "cupboard": "Cupboard"
-      }
+      "options": { "frozen": "Freezer", "fridge": "Fridge", "cupboard": "Cupboard" }
     },
     "shelf_unit": {
-      "options": {
-        "days": "Days",
-        "months": "Months"
-      }
+      "options": { "days": "Days", "months": "Months" }
     },
     "method": {
       "options": {
         "from_frozen": "Cook from frozen",
         "defrost": "Defrost first",
-        "cook": "Cooking instructions",
-        "none": "No instructions"
+        "cook": "Cooking time and temperature only",
+        "none": "No cooking instructions"
       }
     },
     "kind": {
-      "options": {
-        "address": "Address",
-        "food": "Food",
-        "travel": "Travel",
-        "battery": "Battery",
-        "network": "Network"
-      }
+      "options": { "address": "Address", "food": "Food", "travel": "Travel", "battery": "Battery", "network": "Network" }
     }
   },
   "services": {
     "print_address": {
       "name": "Print address label",
-      "description": "Prints a name and address, with an optional icon.",
+      "description": "Prints a name and address, with an icon if you choose one.",
       "fields": {
-        "name": {
-          "name": "Name",
-          "description": "The name on the label."
-        },
-        "address": {
-          "name": "Address",
-          "description": "One line per row."
-        },
-        "icon": {
-          "name": "Icon",
-          "description": "A built-in icon (e.g. gift, birthday, christmas) or one you uploaded in the app."
-        },
-        "copies": {
-          "name": "Copies",
-          "description": "How many labels to print (1-20)."
-        },
-        "config_entry_id": {
-          "name": "Label printer",
-          "description": "Only needed if more than one label printer is set up."
-        }
+        "name": { "name": "Name", "description": "The name to print at the top." },
+        "address": { "name": "Address", "description": "Put each line of the address on a new line." },
+        "icon": { "name": "Icon", "description": "The name of an icon, such as gift or birthday. You can also use an icon you uploaded in the app." },
+        "copies": { "name": "Copies", "description": "How many labels to print, from 1 to 20." },
+        "config_entry_id": { "name": "Label printer", "description": "Only needed if you've set up more than one label printer." }
       }
     },
     "print_battery": {
       "name": "Print battery label",
-      "description": "Prints a small label with the device, battery type and date changed.",
+      "description": "Prints a small label showing the device, the battery type and the date it was changed.",
       "fields": {
-        "device": {
-          "name": "Device",
-          "description": "What the battery is in."
-        },
-        "battery": {
-          "name": "Battery",
-          "description": "Battery type, e.g. CR2032."
-        },
-        "changed": {
-          "name": "Changed on",
-          "description": "Leave empty for today."
-        },
-        "copies": {
-          "name": "Copies",
-          "description": "How many labels to print (1-20)."
-        },
-        "config_entry_id": {
-          "name": "Label printer",
-          "description": "Only needed if more than one label printer is set up."
-        }
+        "device": { "name": "Device", "description": "The device the battery is in." },
+        "battery": { "name": "Battery type", "description": "For example, CR2032." },
+        "changed": { "name": "Date changed", "description": "Leave blank to use today's date." },
+        "copies": { "name": "Copies", "description": "How many labels to print, from 1 to 20." },
+        "config_entry_id": { "name": "Label printer", "description": "Only needed if you've set up more than one label printer." }
       }
     },
     "print_food": {
       "name": "Print food label",
-      "description": "Prints a food label with the frozen/opened date, use-by date and optional cooking instructions.",
+      "description": "Prints a food label with the date it was frozen or opened, a use-by date and, if you like, cooking instructions.",
       "fields": {
-        "title": {
-          "name": "Food",
-          "description": "What the food is."
-        },
-        "storage": {
-          "name": "Kept in",
-          "description": "Freezer, fridge or cupboard."
-        },
-        "date": {
-          "name": "Frozen or opened on",
-          "description": "Leave empty for today."
-        },
-        "shelf": {
-          "name": "Use within",
-          "description": "How long it keeps, in days or months."
-        },
-        "shelf_unit": {
-          "name": "Days or months",
-          "description": "Defaults to months in the freezer, days otherwise."
-        },
-        "method": {
-          "name": "Cooking instructions",
-          "description": "How to cook it, if at all."
-        },
-        "minutes": {
-          "name": "Minutes",
-          "description": "Cooking time."
-        },
-        "temp": {
-          "name": "Temperature",
-          "description": "In the unit chosen in the app's settings (°C or °F)."
-        },
-        "fan": {
-          "name": "Fan oven temperature",
-          "description": "In the unit chosen in the app's settings."
-        },
-        "notes": {
-          "name": "Notes",
-          "description": "Any extra lines."
-        },
-        "copies": {
-          "name": "Copies",
-          "description": "How many labels to print (1-20)."
-        },
-        "config_entry_id": {
-          "name": "Label printer",
-          "description": "Only needed if more than one label printer is set up."
-        }
+        "title": { "name": "Food", "description": "What the food is." },
+        "storage": { "name": "Kept in", "description": "Where the food is stored." },
+        "date": { "name": "Date frozen or opened", "description": "Leave blank to use today's date." },
+        "shelf": { "name": "Use within", "description": "How long the food keeps. Choose days or months below." },
+        "shelf_unit": { "name": "Days or months", "description": "If you leave this blank, freezer food uses months and everything else uses days." },
+        "method": { "name": "Cooking instructions", "description": "How to cook the food, if it needs cooking." },
+        "minutes": { "name": "Cooking time", "description": "In minutes." },
+        "temp": { "name": "Oven temperature", "description": "In the unit set in the app: °C or °F." },
+        "fan": { "name": "Fan oven temperature", "description": "In the unit set in the app: °C or °F." },
+        "notes": { "name": "Notes", "description": "Any extra lines to print." },
+        "copies": { "name": "Copies", "description": "How many labels to print, from 1 to 20." },
+        "config_entry_id": { "name": "Label printer", "description": "Only needed if you've set up more than one label printer." }
       }
     },
     "print_network": {
       "name": "Print network label",
-      "description": "Prints a network device label with its name, IP address, VLAN and MAC address.",
+      "description": "Prints a label for a network device, with its name, IP address, VLAN and MAC address.",
       "fields": {
-        "name": {
-          "name": "Device name",
-          "description": "The device's name."
-        },
-        "ip": {
-          "name": "IP address",
-          "description": "The device's IP address."
-        },
-        "vlan": {
-          "name": "VLAN",
-          "description": "Optional VLAN name or number."
-        },
-        "mac": {
-          "name": "MAC address",
-          "description": "Optional MAC address."
-        },
-        "notes": {
-          "name": "Notes",
-          "description": "Any extra lines."
-        },
-        "copies": {
-          "name": "Copies",
-          "description": "How many labels to print (1-20)."
-        },
-        "config_entry_id": {
-          "name": "Label printer",
-          "description": "Only needed if more than one label printer is set up."
-        }
+        "name": { "name": "Device name", "description": "The name to print at the top." },
+        "ip": { "name": "IP address", "description": "The device's IP address." },
+        "vlan": { "name": "VLAN", "description": "Optional. The VLAN name or number." },
+        "mac": { "name": "MAC address", "description": "Optional. The device's MAC address." },
+        "notes": { "name": "Notes", "description": "Any extra lines to print." },
+        "copies": { "name": "Copies", "description": "How many labels to print, from 1 to 20." },
+        "config_entry_id": { "name": "Label printer", "description": "Only needed if you've set up more than one label printer." }
       }
     },
     "print_label": {
       "name": "Print any label",
-      "description": "Prints any label type, with its fields given as a dictionary (see the app's API).",
+      "description": "Prints any type of label. Give its details in the same form as the app's API.",
       "fields": {
-        "kind": {
-          "name": "Label type",
-          "description": "Which kind of label to print."
-        },
-        "fields": {
-          "name": "Fields",
-          "description": "The label's fields, as in the app's API."
-        },
-        "copies": {
-          "name": "Copies",
-          "description": "How many labels to print (1-20)."
-        },
-        "config_entry_id": {
-          "name": "Label printer",
-          "description": "Only needed if more than one label printer is set up."
-        }
+        "kind": { "name": "Label type", "description": "The type of label to print." },
+        "fields": { "name": "Label details", "description": "The label's details. For a battery label, for example: device and battery." },
+        "copies": { "name": "Copies", "description": "How many labels to print, from 1 to 20." },
+        "config_entry_id": { "name": "Label printer", "description": "Only needed if you've set up more than one label printer." }
       }
     }
   }

@@ -38,24 +38,24 @@ def state_of(hass: HomeAssistant, suffix: str):
 
 
 async def test_sensors_ready(hass: HomeAssistant, app, config_entry) -> None:
-    """With the printer ready: status ready, roll shown, no problem."""
+    """With the printer ready: status ready, roll shown, ready to print."""
     await setup(hass, config_entry)
     assert config_entry.state is ConfigEntryState.LOADED
     status = state_of(hass, "_printer_status")
     assert status.state == "ready"
     assert status.attributes["message"] == "Printer ready"
     assert state_of(hass, "_loaded_roll").state == "62mm continuous"
-    assert state_of(hass, "_printer_problem").state == "off"
+    assert state_of(hass, "_ready_to_print").state == "on"
 
 
 async def test_sensors_offline(hass: HomeAssistant, aioclient_mock, config_entry) -> None:
-    """The app's "unavailable" (printer off) shows as offline, with a problem."""
+    """The app's "unavailable" (printer off) shows as offline, and not ready to print."""
     aioclient_mock.get(f"{URL}/api/options", json={"models": [], "version": "1.2.0"})
     aioclient_mock.get(f"{URL}/api/printer/status",
                        json={"ok": False, "state": "unavailable", "message": "Printer unavailable", "media": None})
     await setup(hass, config_entry)
     assert state_of(hass, "_printer_status").state == "offline"
-    assert state_of(hass, "_printer_problem").state == "on"
+    assert state_of(hass, "_ready_to_print").state == "off"
 
 
 async def test_app_unreachable(hass: HomeAssistant, aioclient_mock, config_entry) -> None:

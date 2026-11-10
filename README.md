@@ -3,7 +3,7 @@
 Print labels on a Brother QL label printer from Home Assistant, and see
 whether the printer is ready.
 
-_Updated: 2026-11-10 00:30 GMT · Developer: Ash @ Distant Galaxy (distantgalaxy-net)_
+_Updated: 2026-11-10 00:50 GMT · Developer: Ash @ Distant Galaxy (distantgalaxy-net)_
 
 This integration connects Home Assistant to the
 [QL Label Printer app](https://github.com/distantgalaxy-net/ql-label-printer),
@@ -15,13 +15,12 @@ integration lets Home Assistant use it.
 
 ## What you get
 
-- **Printer status sensor:** *Ready*, *Cover open*, *Label spool finished*,
-  *Wrong roll fitted*, *Offline*, *Error*, or *Connected (status not
-  reported)* for printers that don't report their state. Checked every
-  minute.
-- **Loaded roll sensor:** e.g. *62mm continuous*.
-- **Printer problem binary sensor:** on while the printer can't print, for
-  notifications and automations.
+- **Printer status:** *Ready*, *Cover open*, *Label spool finished*, *Wrong
+  label roll*, *Printer error* or *Offline*. Printers that don't report
+  their state show *Connected – status unknown*. Checked every minute.
+- **Loaded roll:** for example, *62mm continuous*.
+- **Ready to print:** *Yes* or *No*, which is useful for notifications and
+  automations. Printer status says why.
 - **Print actions** with proper fields in Home Assistant's action editor:
   - **Print address label:** name, address, icon.
   - **Print battery label:** device, battery type, date changed.
@@ -73,8 +72,8 @@ Enter:
   - **Behind a reverse proxy:** use the `https://` address you open it at,
     e.g. `https://labels.home.example`, **without** a port number.
 - **Password:** only if you set one in the app's Settings tab.
-- **Address to open in a browser** (optional): what the device page's
-  **Visit** link opens. Leave it blank to use the app address. Set it when
+- **Web page address** (optional): what the device page's **Visit** link
+  opens. Leave it blank to use the app address. Set it when
   the app address only works for Home Assistant: for example, connect at
   `http://127.0.0.1:8013` and link to `https://labels.home.example`.
 
@@ -144,8 +143,8 @@ data:
 ```yaml
 triggers:
   - trigger: state
-    entity_id: binary_sensor.ql_label_printer_printer_problem
-    to: "on"
+    entity_id: binary_sensor.ql_label_printer_ready_to_print
+    to: "off"
     for: { minutes: 5 }
 actions:
   - action: notify.notify
@@ -178,7 +177,7 @@ yours on the device page.
 | Problem | What to check |
 |---|---|
 | Setup says it can't reach the app | The address, and that Home Assistant can reach that host and port. An app published only on `127.0.0.1` is reachable only from the same host. |
-| Setup can't reach the `https://` name, but `127.0.0.1` works | Use the name without a port (`https://labels.home.example`, not `:8013`). If your reverse proxy only allows certain addresses, Home Assistant's requests come from its own host's address, so allow that too. Or connect at `http://127.0.0.1:8013` and put the `https://` name in **Address to open in a browser**. |
+| Setup can't reach the `https://` name, but `127.0.0.1` works | Use the name without a port (`https://labels.home.example`, not `:8013`). If your reverse proxy only allows certain addresses, Home Assistant's requests come from its own host's address, so allow that too. Or connect at `http://127.0.0.1:8013` and put the `https://` name in **Web page address**. |
 | Setup says the password is wrong | The password set in the app's **Settings → Password**. |
 | Status always *Connected (status not reported)* | The printer isn't answering status checks. See the app's README: it needs SNMP, and UDP 161 open to the printer. |
 | An action fails with *Not printed: …* | The app checked the printer first and found a problem (the reason is in the message). Fix it, then try again. |

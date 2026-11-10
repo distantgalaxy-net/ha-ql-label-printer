@@ -16,13 +16,32 @@
       "media": {
         "default": "mdi:label-outline"
       }
+    },
+    "binary_sensor": {
+      "ready": {
+        "default": "mdi:printer-check",
+        "state": {
+          "on": "mdi:printer-check",
+          "off": "mdi:printer-alert"
+        }
+      }
     }
   },
   "services": {
-    "print_address": { "service": "mdi:email-outline" },
-    "print_battery": { "service": "mdi:battery-outline" },
-    "print_food": { "service": "mdi:food-variant" },
-    "print_network": { "service": "mdi:lan" },
-    "print_label": { "service": "mdi:label-outline" }
+    "print_address": {
+      "service": "mdi:email-outline"
+    },
+    "print_battery": {
+      "service": "mdi:battery-outline"
+    },
+    "print_food": {
+      "service": "mdi:food-variant"
+    },
+    "print_network": {
+      "service": "mdi:lan"
+    },
+    "print_label": {
+      "service": "mdi:label-outline"
+    }
   }
 }

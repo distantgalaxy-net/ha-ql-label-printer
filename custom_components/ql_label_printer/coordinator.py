@@ -1,6 +1,6 @@
 """Regular printer status checks for the QL Label Printer integration.
 
-Date: 2026-11-09 23:25 GMT
+Date: 2026-11-10 01:00 GMT (updated; first written 2026-11-09 23:25 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Asks the label printer app once a minute whether the printer is ready.
@@ -52,6 +52,6 @@ class LabelPrinterCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         try:
             return await self.client.get_status()
         except InvalidAuth as exc:
-            raise UpdateFailed("The label printer app's password has changed; reconfigure the integration") from exc
+            raise UpdateFailed("The label printer app's password has changed. Enter the new one in the integration's settings.") from exc
         except CannotConnect as exc:
             raise UpdateFailed(str(exc)) from exc

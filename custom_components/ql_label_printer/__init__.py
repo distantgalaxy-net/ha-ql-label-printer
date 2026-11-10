@@ -1,13 +1,13 @@
 """The QL Label Printer integration.
 
-Date: 2026-11-09 23:25 GMT
+Date: 2026-11-10 01:00 GMT (updated; first written 2026-11-09 23:25 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Connects Home Assistant to the QL Label Printer app
 (github.com/distantgalaxy-net/ql-label-printer), which prints labels on a
 network Brother QL printer. This integration:
-  - shows whether the printer is ready (sensor + problem binary sensor),
-    checked once a minute;
+  - shows whether the printer is ready (status and loaded roll sensors,
+    and a "Ready to print" yes/no sensor), checked once a minute;
   - adds actions to print labels: print_address, print_battery,
     print_food, print_network, and print_label for any label type.
 The app does the layout and printing; nothing here talks to the printer.
@@ -101,11 +101,11 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
             for entry in loaded:
                 if entry.entry_id == wanted:
                     return entry
-            raise ServiceValidationError("That label printer isn't set up, or isn't loaded")
+            raise ServiceValidationError("That label printer isn't set up, or isn't working right now.")
         if not loaded:
-            raise ServiceValidationError("No label printer is set up")
+            raise ServiceValidationError("No label printer is set up yet. Add one in Settings, Devices & services.")
         if len(loaded) > 1:
-            raise ServiceValidationError("More than one label printer is set up: choose one with config_entry_id")
+            raise ServiceValidationError("You have more than one label printer. Choose one in the Label printer field.")
         return loaded[0]
 
     async def send(call: ServiceCall, kind: str, fields: dict[str, Any]) -> ServiceResponse:
@@ -120,7 +120,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
             await data.coordinator.async_request_refresh()       # show the printer's state now
             raise HomeAssistantError(str(exc)) from exc
         except InvalidAuth as exc:
-            raise HomeAssistantError("The label printer app's password has changed; reconfigure the integration") from exc
+            raise HomeAssistantError("The label printer app's password has changed. Enter the new one in the integration's settings.") from exc
         except CannotConnect as exc:
             raise HomeAssistantError(str(exc)) from exc
         await data.coordinator.async_request_refresh()

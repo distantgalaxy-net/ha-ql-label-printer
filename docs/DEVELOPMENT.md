@@ -4,7 +4,7 @@ Read this before changing the code. It explains what this integration is,
 the decisions already made and the constraints that aren't obvious from
 the code.
 
-_Last updated: 2026-11-10 00:30 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
+_Last updated: 2026-11-10 00:50 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
 
 ---
 
@@ -34,7 +34,9 @@ generic examples ("Alex Example", `192.168.1.20`, `labels.home.example`,
 - **Entities** (one device per app):
   - Printer status: enum sensor, with the app's message as an attribute.
   - Loaded roll: sensor.
-  - Printer problem: binary sensor, device class problem.
+  - Ready to print: binary sensor, Yes/No (on = ready). It replaced a
+    "Printer problem" sensor, whose standard "OK / Problem" wording read
+    ambiguously.
 - **Actions** (registered in `async_setup`, with an optional
   `config_entry_id`):
   - `print_address`, `print_battery`, `print_food`, `print_network`:
@@ -51,7 +53,10 @@ generic examples ("Alex Example", `192.168.1.20`, `labels.home.example`,
 - **Native look only.** No custom panels, cards or frontend code: setup,
   device page, entities and actions all use Home Assistant's own UI, so it
   looks built in and follows the user's theme. Text reads like Home
-  Assistant's own (sentence case, plain English).
+  Assistant's own (sentence case, plain English). All user-facing text is in
+  `translations/en.json`. Write it for people, not developers: short
+  sentences that say what to do, with no "e.g." or jargon (follow the
+  Distant Galaxy voice: plain UK English, speak to the reader as "you").
 - **The app does the work.** Label layout, printer checks and printing stay
   in the app; this integration just passes fields through. New label
   fields need no change here except, for the typed actions, adding the
@@ -86,7 +91,7 @@ custom_components/ql_label_printer/
   coordinator.py    once-a-minute status check, runtime data type
   entity.py         shared device info for the entities
   sensor.py         printer status + loaded roll
-  binary_sensor.py  printer problem
+  binary_sensor.py  ready to print (Yes/No)
   const.py          names, timings, states
   services.yaml     action fields and selectors
   translations/en.json  all user-facing text

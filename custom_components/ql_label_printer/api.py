@@ -1,6 +1,6 @@
 """Client for the QL Label Printer app's JSON API.
 
-Date: 2026-11-09 23:25 GMT
+Date: 2026-11-10 01:00 GMT (updated; first written 2026-11-09 23:25 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 The label printer app (github.com/distantgalaxy-net/ql-label-printer) does
@@ -66,20 +66,20 @@ class LabelPrinterClient:
                 timeout=aiohttp.ClientTimeout(total=timeout),
             ) as resp:
                 if resp.status == 401:
-                    raise InvalidAuth("The label printer app needs a password, or the password is wrong")
+                    raise InvalidAuth("The password is wrong, or the label printer app needs a password.")
                 try:
                     body = await resp.json(content_type=None)
                 except (aiohttp.ContentTypeError, ValueError) as exc:
-                    raise CannotConnect(f"{self.url} didn't answer like the label printer app") from exc
+                    raise CannotConnect(f"The address {self.url} doesn't seem to be the label printer app.") from exc
                 return resp.status, body if isinstance(body, dict) else {}
         except (aiohttp.ClientError, asyncio.TimeoutError) as exc:
-            raise CannotConnect(f"Couldn't reach the label printer app at {self.url}") from exc
+            raise CannotConnect(f"Home Assistant can't reach the label printer app at {self.url}. Check the app is running.") from exc
 
     async def get_version(self) -> str:
         """The app's version (e.g. "1.2.0"). Used to check the URL and password."""
         status, body = await self._request("GET", "/api/options", STATUS_TIMEOUT)
         if status != 200 or "models" not in body:
-            raise CannotConnect(f"{self.url} didn't answer like the label printer app")
+            raise CannotConnect(f"The address {self.url} doesn't seem to be the label printer app.")
         return str(body.get("version") or "unknown")
 
     async def get_status(self) -> dict[str, Any]:
@@ -103,7 +103,7 @@ class LabelPrinterClient:
         if status == 200 and body.get("ok"):
             return message or "Label sent to printer"
         printer = normalise_status(body["printer"]) if isinstance(body.get("printer"), dict) else None
-        raise PrintFailed(message or f"The label printer app couldn't print (HTTP {status})", printer)
+        raise PrintFailed(message or f"The label printer app couldn't print the label (error {status}).", printer)
 
 
 def normalise_status(body: dict[str, Any]) -> dict[str, Any]:

@@ -1,11 +1,11 @@
 {
   "domain": "ql_label_printer",
   "name": "QL Label Printer",
-  "codeowners": [
-    "@distantgalaxy-net"
-  ],
   "categories": [
     "computers_network.printers"
+  ],
+  "codeowners": [
+    "@distantgalaxy-net"
   ],
   "config_flow": true,
   "documentation": "https://github.com/distantgalaxy-net/ha-ql-label-printer",

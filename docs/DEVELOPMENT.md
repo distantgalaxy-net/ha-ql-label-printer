@@ -4,7 +4,7 @@ Read this before changing the code. It explains what this integration is,
 the decisions already made and the constraints that aren't obvious from
 the code.
 
-_Last updated: 2026-11-10 00:50 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
+_Last updated: 2026-11-10 08:30 GMT · Owner: Ash @ Distant Galaxy (distantgalaxy-net)_
 
 ---
 
@@ -66,6 +66,13 @@ generic examples ("Alex Example", `192.168.1.20`, `labels.home.example`,
   `unavailable` printer state is shown as `offline`.
 - **Minimum Home Assistant:** 2025.2 (`AddConfigEntryEntitiesCallback`).
   Keep `hacs.json` in step.
+- **Category:** `computers_network.printers` in the manifest (Home
+  Assistant's integration categories; shows it under Computers & network →
+  Printers).
+- **Help text and URLs:** hassfest rejects web addresses with a domain name
+  (e.g. `https://…example`) in `translations/en.json`; pass them as
+  description placeholders instead. IP addresses like `http://127.0.0.1:8013`
+  are allowed.
 - **No requirements:** only Home Assistant's own libraries (aiohttp,
   voluptuous).
 - **Brand images:** original artwork only. Never Home Assistant's branding,

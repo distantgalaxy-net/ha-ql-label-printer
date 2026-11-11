@@ -1,6 +1,6 @@
 """The QL Label Printer integration.
 
-Date: 2026-11-11 10:00 GMT (updated; first written 2026-11-09 23:25 GMT)
+Date: 2026-11-11 13:00 GMT (updated; first written 2026-11-09 23:25 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Connects Home Assistant to the QL Label Printer app
@@ -71,7 +71,7 @@ ACTIONS: dict[str, tuple[str, dict]] = {
         vol.Optional("shelf"): number,              # use within...
         vol.Optional("shelf_unit"): vol.In(["days", "months"]),
         vol.Optional("method"): vol.In(["from_frozen", "defrost", "cook", "none"]),
-        # What it's cooked in; needs app 1.2.9 or later (older apps ignore it)
+        # What it's cooked in (app 1.3.0 or later; older apps ignore it)
         vol.Optional("appliance"): vol.In(["oven", "air_fryer", "microwave", "hob"]),
         vol.Optional("minutes"): number,
         vol.Optional("temp"): number,               # oven or air fryer, in the app's temperature unit

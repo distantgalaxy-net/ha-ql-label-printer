@@ -132,6 +132,7 @@ tests/              pytest-homeassistant-custom-component tests
 - **Releases:** the owner decides minor or major. Set the manifest version
   (e.g. `1.0.0`), merge, then publish a GitHub release tagged `v1.0.0`. The
   Marketplace offers releases to users.
+- Released so far: v0.2.0.
 
 ## Testing
 
@@ -169,3 +170,5 @@ request, together with Home Assistant's `hassfest` and the Marketplace
   travel label type is now `luggage`, matching app 1.2.10 (no `travel`
   alias: nothing was using it). No dedicated luggage action: a list of flights is awkward in
   an action form, and `print_label` covers it.
+- 2026-11-11 – v0.2.0 (first release): everything up to 0.1.6. Needs app
+  1.3.0 or later.

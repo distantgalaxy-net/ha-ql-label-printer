@@ -25,8 +25,7 @@ integration lets Home Assistant use it.
   - **Print address label:** name, address, icon.
   - **Print battery label:** device, battery type, date changed.
   - **Print food label:** freezer/fridge/cupboard, use-by, cooking
-    instructions for the oven, air fryer, microwave or hob (the cooking
-    appliance needs app version 1.2.9 or later).
+    instructions for the oven, air fryer, microwave or hob.
   - **Print network label:** name, IP address, VLAN, MAC address.
   - **Print any label:** any label type, with its fields as a dictionary.
 
@@ -39,7 +38,7 @@ action editor and dashboards), so it follows your theme.
 ## Requirements
 
 - The [QL Label Printer app](https://github.com/distantgalaxy-net/ql-label-printer)
-  **1.2.0 or later**, set up and printing.
+  **1.3.0 or later**, set up and printing.
 - Home Assistant **2025.2** or later (**2026.3** or later to show this
   integration's own icon).
 - Home Assistant must be able to reach the app. If Home Assistant runs on
@@ -134,7 +133,7 @@ data:
 
 The luggage label has no action of its own (a list of flights is easier
 to put together in the app). Use **Print any label** with the type
-**Luggage** (needs app version 1.2.10 or later):
+**Luggage**:
 
 ```yaml
 action: ql_label_printer.print_label

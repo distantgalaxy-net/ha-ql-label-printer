@@ -1,13 +1,13 @@
 # ------------------------------------------------------------------
 # ha-ql-label-printer - checks run by GitHub on every pull request
-# Date: 2026-11-10 08:30 GMT (updated; first written 2026-11-09 23:55 GMT)
+# Date: 2026-11-11 14:00 GMT (updated; first written 2026-11-09 23:55 GMT)
 # Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 #
 #   tests     the pytest suite, inside Home Assistant's test harness
 #   hassfest  Home Assistant's own checks for integrations (manifest,
 #             services, translations, ...)
-#   hacs      the Marketplace's (HACS) checks for installable repos. The
-#             "brands" check is skipped: the icon ships in brand/ instead.
+#   hacs      the Marketplace's (HACS) checks for installable repos, all
+#             of them (none switched off), as the Marketplace requires.
 # Actions use their Node.js 24 versions (checkout@v5, setup-python@v6):
 # GitHub is retiring Node.js 20.
 # ------------------------------------------------------------------
@@ -47,4 +47,3 @@ jobs:
       - uses: hacs/action@main
         with:
           category: integration
-          ignore: brands

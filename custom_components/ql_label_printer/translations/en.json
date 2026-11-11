@@ -101,7 +101,7 @@
       "options": { "oven": "Oven", "air_fryer": "Air fryer", "microwave": "Microwave", "hob": "Hob" }
     },
     "kind": {
-      "options": { "address": "Address", "food": "Food", "travel": "Luggage", "battery": "Battery", "network": "Network" }
+      "options": { "address": "Address", "food": "Food", "luggage": "Luggage", "battery": "Battery", "network": "Network" }
     }
   },
   "services": {

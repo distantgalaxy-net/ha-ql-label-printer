@@ -133,13 +133,13 @@ data:
 ```
 
 The luggage label has no action of its own (a list of flights is easier
-to put together in the app). It's **Luggage** in the **Print any label**
-list, and `travel` in YAML:
+to put together in the app). Use **Print any label** with the type
+**Luggage** (needs app version 1.2.10 or later):
 
 ```yaml
 action: ql_label_printer.print_label
 data:
-  kind: travel
+  kind: luggage
   fields:
     name: Alex Example
     legs:

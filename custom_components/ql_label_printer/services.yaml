@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------
 # QL Label Printer - print actions and their form fields
-# Date: 2026-11-11 10:00 GMT (updated; first written 2026-11-09 23:35 GMT)
+# Date: 2026-11-11 10:45 GMT (updated; first written 2026-11-09 23:35 GMT)
 # Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 #
 # The fields shown in Home Assistant's action editor. Names and
@@ -166,7 +166,7 @@ print_label:
       selector:
         select:
           translation_key: kind
-          options: [address, food, travel, battery, network]
+          options: [address, food, luggage, battery, network]
     fields:
       example: '{"device": "Hallway sensor", "battery": "CR2032"}'
       selector:

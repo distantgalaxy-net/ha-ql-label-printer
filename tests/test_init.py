@@ -84,6 +84,8 @@ async def test_app_unreachable(hass: HomeAssistant, aioclient_mock, config_entry
                   "watts": 900, "notes": "Stir, then 2 more min"}),
         ("print_network", {"name": "Label printer", "ip": "192.168.1.20", "vlan": "20"},
          "network", {"name": "Label printer", "ip": "192.168.1.20", "vlan": "20"}),
+        ("print_label", {"kind": "luggage", "fields": {"name": "Alex Example", "flights": "1 Mar XX 95 AAA-BBB"}},
+         "luggage", {"name": "Alex Example", "flights": "1 Mar XX 95 AAA-BBB"}),
         ("print_label", {"kind": "battery", "fields": {"device": "Smoke alarm", "battery": "9V"}},
          "battery", {"device": "Smoke alarm", "battery": "9V"}),
     ],

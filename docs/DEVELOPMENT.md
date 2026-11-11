@@ -166,6 +166,6 @@ request, together with Home Assistant's `hassfest` and the Marketplace
   hob) and `watts`, matching app 1.2.9. Both are optional, so automations
   written for 0.1.5 keep printing the same label (0.1.6).
   Also in 0.1.6: `print_address` gains `note` and `note_align`, and the
-  label type list shows "Luggage" for `travel` (the app's API name stays
-  `travel`). No dedicated luggage action: a list of flights is awkward in
+  travel label type is now `luggage`, matching app 1.2.10 (no `travel`
+  alias: nothing was using it). No dedicated luggage action: a list of flights is awkward in
   an action form, and `print_label` covers it.

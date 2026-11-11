@@ -1,6 +1,6 @@
 """Constants for the QL Label Printer integration.
 
-Date: 2026-11-11 10:00 GMT (updated; first written 2026-11-09 23:25 GMT)
+Date: 2026-11-11 10:45 GMT (updated; first written 2026-11-09 23:25 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Shared names and settings: the integration's domain, config entry keys,
@@ -38,9 +38,8 @@ PRINT_TIMEOUT = 60
 STATE_OFFLINE = "offline"
 PRINTER_STATES = ["ready", "connected", "cover_open", "no_media", "wrong_media", "error", STATE_OFFLINE]
 
-# Label types the app can print (POST /api/print/<kind>). "travel" is the
-# app's API name for the luggage label, shown as "Luggage" in the UI.
-LABEL_KINDS = ["address", "food", "travel", "battery", "network"]
+# Label types the app can print (POST /api/print/<kind>)
+LABEL_KINDS = ["address", "food", "luggage", "battery", "network"]
 
 # Most copies the app will print in one go
 MAX_COPIES = 20

@@ -132,6 +132,7 @@ tests/              pytest-homeassistant-custom-component tests
 - **Releases:** the owner decides minor or major. Set the manifest version
   (e.g. `1.0.0`), merge, then publish a GitHub release tagged `v1.0.0`. The
   Marketplace offers releases to users.
+- Released so far: v0.2.0.
 
 ## Testing
 
@@ -162,3 +163,12 @@ request, together with Home Assistant's `hassfest` and the Marketplace
   show a placeholder like a "budget add-on". Drawn in the Distant Galaxy
   Signal palette with an orange printer button as the brand nod (an
   earlier loose "distant star" dot was dropped as looking random).
+- 2026-11-11 – `print_food` gains `appliance` (oven, air fryer, microwave,
+  hob) and `watts`, matching app 1.2.9. Both are optional, so automations
+  written for 0.1.5 keep printing the same label (0.1.6).
+  Also in 0.1.6: `print_address` gains `note` and `note_align`, and the
+  travel label type is now `luggage`, matching app 1.2.10 (no `travel`
+  alias: nothing was using it). No dedicated luggage action: a list of flights is awkward in
+  an action form, and `print_label` covers it.
+- 2026-11-11 – v0.2.0 (first release): everything up to 0.1.6. Needs app
+  1.3.0 or later.

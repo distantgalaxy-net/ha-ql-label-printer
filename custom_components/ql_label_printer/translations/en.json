@@ -94,18 +94,26 @@
         "none": "No cooking instructions"
       }
     },
+    "note_align": {
+      "options": { "left": "Left", "center": "Centre" }
+    },
+    "appliance": {
+      "options": { "oven": "Oven", "air_fryer": "Air fryer", "microwave": "Microwave", "hob": "Hob" }
+    },
     "kind": {
-      "options": { "address": "Address", "food": "Food", "travel": "Travel", "battery": "Battery", "network": "Network" }
+      "options": { "address": "Address", "food": "Food", "luggage": "Luggage", "battery": "Battery", "network": "Network" }
     }
   },
   "services": {
     "print_address": {
       "name": "Print address label",
-      "description": "Prints a name and address, with an icon if you choose one.",
+      "description": "Prints a name and address, with an icon and a small note if you choose them.",
       "fields": {
         "name": { "name": "Name", "description": "The name to print at the top." },
         "address": { "name": "Address", "description": "Put each line of the address on a new line." },
         "icon": { "name": "Icon", "description": "The name of an icon, such as gift or birthday. You can also use an icon you uploaded in the app." },
+        "note": { "name": "Note", "description": "Printed small, across the label, under the address. For example: Please leave with a neighbour." },
+        "note_align": { "name": "Note alignment", "description": "Left (the default) or centre." },
         "copies": { "name": "Copies", "description": "How many labels to print, from 1 to 20." },
         "config_entry_id": { "name": "Label printer", "description": "Only needed if you've set up more than one label printer." }
       }
@@ -131,10 +139,12 @@
         "shelf": { "name": "Use within", "description": "How long the food keeps. Choose days or months below." },
         "shelf_unit": { "name": "Days or months", "description": "If you leave this blank, freezer food uses months and everything else uses days." },
         "method": { "name": "Cooking instructions", "description": "How to cook the food, if it needs cooking." },
+        "appliance": { "name": "Cook in", "description": "Oven, air fryer, microwave or hob. Printed before the cooking time, for example \"Microwave: 3 min @ 900W\". Leave blank for the older layout with no name in front." },
         "minutes": { "name": "Cooking time", "description": "In minutes." },
-        "temp": { "name": "Oven temperature", "description": "In the unit set in the app: °C or °F." },
-        "fan": { "name": "Fan oven temperature", "description": "In the unit set in the app: °C or °F." },
-        "notes": { "name": "Notes", "description": "Any extra lines to print." },
+        "temp": { "name": "Temperature", "description": "Oven or air fryer. In the unit set in the app: °C or °F." },
+        "fan": { "name": "Fan oven temperature", "description": "Oven only. In the unit set in the app: °C or °F." },
+        "watts": { "name": "Microwave power", "description": "Microwave only, in watts, for example 900." },
+        "notes": { "name": "Notes", "description": "Any extra lines to print, such as \"Stir, then 2 more min\"." },
         "copies": { "name": "Copies", "description": "How many labels to print, from 1 to 20." },
         "config_entry_id": { "name": "Label printer", "description": "Only needed if you've set up more than one label printer." }
       }

@@ -1,6 +1,6 @@
 """The QL Label Printer integration.
 
-Date: 2026-11-10 01:00 GMT (updated; first written 2026-11-09 23:25 GMT)
+Date: 2026-11-11 13:00 GMT (updated; first written 2026-11-09 23:25 GMT)
 Developer: Ash @ Distant Galaxy (distantgalaxy-net)
 
 Connects Home Assistant to the QL Label Printer app
@@ -55,6 +55,9 @@ ACTIONS: dict[str, tuple[str, dict]] = {
         vol.Required("name"): text,
         vol.Optional("address"): text,              # lines separated by new lines
         vol.Optional("icon"): text,                 # e.g. "gift", or one of your own icons
+        # Small note under the address, and its alignment (app 1.2.4 or later)
+        vol.Optional("note"): text,
+        vol.Optional("note_align"): vol.In(["left", "center"]),
     }),
     "print_battery": ("battery", {
         vol.Required("device"): text,
@@ -68,9 +71,12 @@ ACTIONS: dict[str, tuple[str, dict]] = {
         vol.Optional("shelf"): number,              # use within...
         vol.Optional("shelf_unit"): vol.In(["days", "months"]),
         vol.Optional("method"): vol.In(["from_frozen", "defrost", "cook", "none"]),
+        # What it's cooked in (app 1.3.0 or later; older apps ignore it)
+        vol.Optional("appliance"): vol.In(["oven", "air_fryer", "microwave", "hob"]),
         vol.Optional("minutes"): number,
-        vol.Optional("temp"): number,               # in the app's temperature unit
-        vol.Optional("fan"): number,
+        vol.Optional("temp"): number,               # oven or air fryer, in the app's temperature unit
+        vol.Optional("fan"): number,                # oven only
+        vol.Optional("watts"): number,              # microwave only
         vol.Optional("notes"): text,
     }),
     "print_network": ("network", {

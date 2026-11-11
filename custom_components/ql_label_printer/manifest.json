@@ -13,5 +13,5 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/distantgalaxy-net/ha-ql-label-printer/issues",
   "requirements": [],
-  "version": "0.1.5"
+  "version": "0.2.0"
 }

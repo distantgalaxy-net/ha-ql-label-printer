@@ -132,7 +132,7 @@ tests/              pytest-homeassistant-custom-component tests
 - **Releases:** the owner decides minor or major. Set the manifest version
   (e.g. `1.0.0`), merge, then publish a GitHub release tagged `v1.0.0`. The
   Marketplace offers releases to users.
-- Released so far: v0.2.0.
+- Released so far: v0.2.0, v0.2.1.
 
 ## Testing
 
@@ -172,3 +172,6 @@ request, together with Home Assistant's `hassfest` and the Marketplace
   an action form, and `print_label` covers it.
 - 2026-11-11 – v0.2.0 (first release): everything up to 0.1.6. Needs app
   1.3.0 or later.
+- 2026-11-11 – v0.2.1: the Marketplace checks now run in full (the
+  "brands" check passes with the icon in `brand/`), as the Marketplace
+  requires before adding a repository to its default list.
